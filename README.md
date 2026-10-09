@@ -208,12 +208,29 @@ As per assignment constraints:
 
 ---
 
-## 📮 Postman Collection
+## 📮 Postman Collection & Testing Guide
 
-A complete, ready-to-test Postman collection is located at [`postman/task-management.postman_collection.json`](file:///c:/Users/CommL/Desktop/task%20managemnt%20system/postman/task-management.postman_collection.json).
-- Import into Postman.
-- Pre-configured `baseUrl` variable set to `http://localhost:5000/api`.
-- Includes test endpoints for 200, 201, 400 validation failures, and 404 error cases.
+A complete, production-ready Postman collection is located at [`postman/task-management.postman_collection.json`](file:///c:/Users/CommL/Desktop/task%20managemnt%20system/postman/task-management.postman_collection.json).
+
+### How to Import & Test in Postman:
+
+1. **Open Postman** and click **Import** (or press `Ctrl+O` / `Cmd+O`).
+2. Select or drag-and-drop the file [`postman/task-management.postman_collection.json`](file:///c:/Users/CommL/Desktop/task%20managemnt%20system/postman/task-management.postman_collection.json).
+3. Ensure your local server is running at `http://localhost:5000` (`npm start --prefix backend`).
+4. The collection uses a pre-configured variable `baseUrl` set to `http://localhost:5000/api`.
+
+### Requests & Automated Tests Included:
+- `GET {{baseUrl}}/health` — Server health check (`200 OK`)
+- `GET {{baseUrl}}/tasks` — Fetch all tasks (`200 OK`)
+- `GET {{baseUrl}}/tasks?status=in_progress&priority=high` — Filtered & paginated query (`200 OK`)
+- `GET {{baseUrl}}/tasks/task-001-sample` — Fetch single task by ID (`200 OK`)
+- `POST {{baseUrl}}/tasks` — Create task with valid JSON payload (`201 Created`)
+- `POST {{baseUrl}}/tasks` — Submit invalid empty title/description to verify validation (`400 Bad Request`)
+- `PUT {{baseUrl}}/tasks/task-001-sample` — Update task fields & timestamp (`200 OK`)
+- `DELETE {{baseUrl}}/tasks/task-001-sample` — Delete task (`200 OK`)
+- `DELETE {{baseUrl}}/tasks/non-existent-id` — Attempt delete of invalid ID (`404 Not Found`)
+
+*All 9 endpoints include embedded Postman JavaScript test scripts asserting HTTP status codes and JSON response signatures.*
 
 ---
 
